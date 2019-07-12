@@ -1,0 +1,16 @@
+enclave {
+    include "sgx_eid.h"
+    include "datatypes.h"
+    include "../Include/dh_session_protocol.h"
+
+    trusted {
+        // run client
+        public uint32_t run_client();
+    };
+
+    untrusted {
+        uint32_t send_ocall([in, size = len]void* buf, int len);
+        uint32_t recv_ocall([out, size = len]void* buf, int len);
+        uint32_t log_ocall([in, string]const char* buf);
+    };
+};
